@@ -1,0 +1,173 @@
+{% extends "layout.html" %}
+{% block body %}
+<style>
+body{
+	margin:0;
+	padding:0;
+	background: url('https://img.freepik.com/free-photo/blurred-bokeh-background_36923-877.jpg?size=626&ext=jpg');
+	backdrop-filter: blur(2px);
+	background-size:cover;
+	background-repeat:no-repeat;
+	background-size: 100% 100%;
+}
+.title{
+	text-align:center;
+	padding:50px 0 20px;
+}
+.title h1{
+	margin:20px;
+	padding:20px;
+	color:#262626;
+	text-transform:uppercase;
+	font-size:36px;
+	font-weight:bold;
+}
+.container{
+	width:50%;
+	height:500px;
+	background:#fff;
+	margin:50px auto;
+	border:2px solid #fff;
+	box-shadow: 20px 50px 60px rgba(0,0,0,.5);
+}
+.container .left{
+	float:left;
+	width:50%;
+	height:450px;
+	background: url('https://www.pngitem.com/pimgs/m/255-2559778_facial-recognition-icon-transparent-face-recognition-icon-hd.png');
+	background-size:cover;
+	box-sizing:border-box;
+}
+.container .right{
+	float:right;
+	width:50%;
+	height:500px;
+}
+.formBox{
+	width:100%;
+	padding:80px 40px;
+	box-sizing:border-box;
+	height:400px;
+	background:#fff;
+}
+.formBox p{
+	margin:0;
+	padding:0;
+	color:#000;
+	font-size:20px;
+	font-weight:bold;
+}
+.formBox input{
+	width:100%;
+	font-size:19px;
+	font-weight:bold;
+	color:##777;
+	margin-bottom:15px;
+}
+.formBox input[type="text"],
+.formBox input[type="date"]{
+	border:none;
+	border-bottom:2px solid #03a9f4;
+	outline:none;
+	color:#808080;
+	height:40px;
+}
+.formBox input[type="text"]:focus,
+.formBox input[type="date"]:focus{
+		border-bottom:2px solid #ff4987;
+
+}
+
+.formBox input[type="submit"]{
+	margin:20px 0;
+	border:none;
+	cursor:pointer;
+	background:#03a9f4;
+	color:#fff;
+	height:50px;
+	font-weight:bold;
+	font-size:18px;
+	transition:0.5s;
+}
+.formBox input[type="submit"]:hover{
+	background:#ff4987;
+}
+</style>
+  <div class="title"><h1>Appointment Form</h1></div>
+	<div class="container">
+		<div class="left"></div>
+		<div class="right">
+			<div class="formBox">
+				  {% if messages %}
+					{% for message in messages %}
+					 {% if message.tags %}  <script>alert("{{ message }}")</script> {% endif %}
+					{% endfor %}
+				  {% endif %}
+			  <form method="POST" action="/submitappointment/{{id}}" enctype="multipart/form-data">
+				  {% csrf_token %}
+				  <input type="text" name="visit" placeholder="Type of Visit"><br>
+				  <input type="text" name="desc" placeholder="What is your Purpose to visit?"><br>
+				  <p>Start Date</p>
+				  <input  name="date_from" type="date" id="start" onchange="temp()"><br>
+				  <p>End Date</p>
+				  <input  name="date_to" type="date" id="end" onchange="temp()"><br>
+				  <input type="submit" name="" value="TAKE PHOTO & SUBMIT APPOINTMENT">
+			  </form>
+			</div>
+		  </div>
+	</div>
+
+
+<!--	<div class="limiter">-->
+<!--		<div class="container-login100">-->
+<!--			<div class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-50">-->
+
+<!--				<form class="login100-form validate-form" method="POST" action="/submitappointment/{{id}}" enctype="multipart/form-data">-->
+<!--					{% csrf_token %}-->
+<!--					<span class="login100-form-title p-b-33">-->
+
+<!--					</span>-->
+
+<!--					<div class="wrap-input100 validate-input">-->
+<!--						 <input class="input100" type="text" name="visit" placeholder="Type of Visit">-->
+<!--						<span class="focus-input100-1"></span>-->
+<!--						<span class="focus-input100-2"></span>-->
+<!--					</div>-->
+<!--                    <div class="wrap-input100 validate-input">-->
+<!--						<input class="input100" type="text" name="desc" placeholder="What is your Purpose to visit?">-->
+<!--						<span class="focus-input100-1"></span>-->
+<!--						<span class="focus-input100-2"></span>-->
+<!--					</div>-->
+
+<!--					<div  class="wrap-input100 validate-input" >-->
+<!--					<table class="center">-->
+<!--							<tr>-->
+<!--							<td>Start Date</td>-->
+<!--							<td><input  name="date_from" type="date" id="start"></td>-->
+<!--							<span class="focus-input100-1"></span>-->
+<!--							<span class="focus-input100-2"></span>-->
+<!--							</table>-->
+<!--					</div>-->
+<!--					<div  class="wrap-input100 validate-input" >-->
+<!--					<table class="center">-->
+<!--							<tr>-->
+<!--							<td>End Date</td>-->
+<!--							<td><input  name="date_to" type="date" id="end"></td>-->
+<!--							<span class="focus-input100-1"></span>-->
+<!--							<span class="focus-input100-2"></span>-->
+<!--							</table>-->
+<!--					</div>-->
+<!--                   	<div class="container-login100-form-btn m-t-20">-->
+<!--						<button class="login100-form-btn" type="submit">-->
+<!--							TAKE PHOTO & SUBMIT APPOINTMENT-->
+<!--						</button>-->
+<!--					</div>-->
+
+<!--				</form>-->
+<!--			</div>-->
+<!--		</div>-->
+<!--	</div>-->
+<!--	-->
+
+<!--	-->
+{% endblock %}

@@ -1,0 +1,148 @@
+{% extends "layout.html" %}
+{% block body %}
+<style>
+body{
+	margin:0;
+	padding:0;
+	background: url('https://img.freepik.com/free-photo/blurred-bokeh-background_36923-877.jpg?size=626&ext=jpg');
+	backdrop-filter: blur(2px);
+	background-size:cover;
+	background-repeat:no-repeat;
+	background-size: 100% 100%;
+}
+.title{
+	text-align:center;
+	padding:50px 0 20px;
+}
+.title h1{
+	margin:20px;
+	padding:20px;
+	color:#262626;
+	text-transform:uppercase;
+	font-size:36px;
+	font-weight:bold;
+}
+.container{
+	width:50%;
+	height:450px;
+	background:#fff;
+	margin:50px auto;
+	border:2px solid #fff;
+	box-shadow: 20px 50px 60px rgba(0,0,0,.5);
+}
+.container .left{
+	float:left;
+	width:50%;
+	height:445px;
+	background: url('https://www.pngitem.com/pimgs/m/255-2559778_facial-recognition-icon-transparent-face-recognition-icon-hd.png');
+	background-size:cover;
+	box-sizing:border-box;
+}
+.container .right{
+	float:right;
+	width:50%;
+	height:400px;
+}
+.formBox{
+	width:100%;
+	padding:80px 40px;
+	box-sizing:border-box;
+	height:400px;
+	background:#fff;
+}
+.formBox input{
+	width:100%;
+	margin-button:20px;
+}
+.formBox input[type="submit"]{
+	margin: 50px 0 40px 0;
+	border:none;
+	cursor:pointer;
+	background:#03a9f4;
+	color:#fff;
+	height:50px;
+	font-weight:bold;
+	font-size:25px;
+	transition:0.5s;
+}
+.formBox input[type="submit"]:hover{
+	background:#ff4987;
+}
+.formBox button{
+	width:100%;
+	margin-button:20px;
+}
+.formBox button{
+	margin: 50px 0 40px 0;
+	border:none;
+	cursor:pointer;
+	background:#03a9f4;
+	color:#fff;
+	height:50px;
+	font-weight:bold;
+	font-size:25px;
+	transition:0.5s;
+}
+.formBox button[type="button"]:hover{
+	background:#ff4987;
+}
+
+</style>
+  <div class="title"><h1>Appointment</h1></div>
+	<div class="container">
+		<div class="left"></div>
+		<div class="right">
+			<div class="formBox">
+			  {% if messages %}
+				{% for message in messages %}
+				 {% if message.tags %}  <script>alert("{{ message }}")</script> {% endif %}
+				{% endfor %}
+			  {% endif %}
+			  <form method="post" action="/takeappointment/{{id}}">
+				  {% csrf_token %}
+
+				  <input type="submit" name="" value="Take Appointment">
+				  <button  onclick="location.href='/'" type="button">Logout</button>
+<!--					<div class="button">-->
+<!--						<a class="button" href="{% url 'home' %}">-->
+<!--							Logout-->
+<!--						</a>-->
+<!--					</div>-->
+			  </form>
+			</div>
+		  </div>
+	</div>
+
+<!--<body>-->
+<!--	-->
+<!--	<div class="limiter">-->
+<!--		<div class="container-login100">-->
+<!--			<div class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-50">-->
+<!--				<form class="login100-form validate-form" method="post" action="/takeappointment/{{id}}">-->
+<!--                    {% csrf_token %}-->
+<!--                    {% for  message in messages %}-->
+<!--					<p id="messages">{{ message }}</p>-->
+<!--				{% endfor %}-->
+<!--					<span class="login100-form-title p-b-33">-->
+<!--							Appointement-->
+<!--					</span>-->
+<!--					<div class="container-login100-form-btn m-t-20">-->
+<!--						<button class="login100-form-btn" type="submit">-->
+<!--							Take appointement-->
+<!--						</button>-->
+<!--					</div>-->
+<!--					<div class="container-login100-form-btn m-t-20">-->
+<!--						<a class="login100-form-btn" href="{% url 'home' %}">-->
+<!--							Logout-->
+<!--						</a>-->
+<!--					</div>-->
+<!--				</form>-->
+<!--				-->
+<!--			</div>-->
+<!--		</div>-->
+<!--	</div>-->
+
+
+
+
+{% endblock %}

@@ -1,0 +1,113 @@
+{% extends "layout.html" %}
+{% block body %}
+<style>
+body{
+	margin:0;
+	padding:0;
+	background: url('https://img.freepik.com/free-photo/blurred-bokeh-background_36923-877.jpg?size=626&ext=jpg');
+	backdrop-filter: blur(2px);
+	background-size:cover;
+	background-repeat:no-repeat;
+	background-size: 100% 100%;
+}
+.title{
+	text-align:center;
+	padding:50px 0 20px;
+}
+.title h1{
+	margin:20px;
+	padding:20px;
+	color:#262626;
+	text-transform:uppercase;
+	font-size:36px;
+	font-weight:bold;
+}
+.container{
+	width:50%;
+	height:450px;
+	background:#fff;
+	margin:50px auto;
+	border:2px solid #fff;
+	box-shadow: 20px 50px 60px rgba(0,0,0,.5);
+}
+.container .left{
+	float:left;
+	width:50%;
+	height:440px;
+	background: url('https://www.flaticon.com/svg/vstatic/svg/78/78948.svg?token=exp=1616593642~hmac=461b9743659e72283e8964d0d6fbab9d');
+	background-size:cover;
+	box-sizing:border-box;
+}
+.container .right{
+	float:right;
+	width:50%;
+	height:400px;
+}
+.formBox{
+	width:100%;
+	padding:80px 40px;
+	box-sizing:border-box;
+	height:400px;
+	background:#fff;
+}
+.formBox input{
+	width:100%;
+	margin-button:20px;
+}
+.formBox input[type="submit"]{
+	margin: 20px 0 30px 0;
+	border:none;
+	cursor:pointer;
+	background:#03a9f4;
+	color:#fff;
+	height:50px;
+	font-weight:bold;
+	font-size:25px;
+	transition:0.5s;
+}
+.formBox input[type="submit"]:hover{
+	background:#ff4987;
+}
+.formBox button{
+	width:100%;
+	margin-button:20px;
+}
+.formBox button[type="button"]{
+	margin: 30px 0 40px 0;
+	border:none;
+	cursor:pointer;
+	background:#03a9f4;
+	color:#fff;
+	height:50px;
+	font-weight:bold;
+	font-size:25px;
+	transition:0.5s;
+}
+.formBox button[type="button"]:hover{
+	background:#ff4987;
+}
+
+</style>
+  <div class="title"><h1>Appointment</h1></div>
+	<div class="container">
+		<div class="left"></div>
+		<div class="right">
+			<div class="formBox">
+				  {% if messages %}
+					{% for message in messages %}
+					 {% if message.tags %}  <script>alert("{{ message }}")</script> {% endif %}
+					{% endfor %}
+				  {% endif %}
+			  <form method="post" action="/view_appointment/">
+				  {% csrf_token %}
+
+				  <input type="submit" name="" value="View Appointment">
+				  <button onclick="location.href='/view_accept_appointment/'" type="button">View Approved Appointment</button>
+				  <button onclick="location.href='/'" type="button">Logout</button>
+
+			  </form>
+			</div>
+		  </div>
+	</div>
+
+{% endblock %}

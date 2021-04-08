@@ -1,0 +1,164 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<style>
+
+body{
+	margin:0;
+	padding:0;
+	background: url('https://i.pcmag.com/imagery/articles/02kQonNmHFwp8Vszm8CVOoO-1..1574904321.jpg');
+	background-size:cover;
+<!--    backdrop-filter: blur(4px);-->
+	background-repeat:no-repeat;
+	background-size: 100% 100%;
+}
+body:before{
+	content:'';
+	position:absolute;
+	top:0;
+	left:-25%;
+	width:50%;
+	height:100%;
+	background:#000;
+	opacity:0.4;
+}
+.form{
+	position:absolute;
+	top:50%;
+	left:25%;
+	transform:translate(-50%,-50%);
+	width:400px;
+	min-height:400px;
+	background:#fff;
+	box-shadow: 0 15px 50px rgba(0,0,0,.5);
+	padding:50px;
+	box-sizing:box-shadow;
+}
+.form h2{
+	color:#777;
+	margin:0 0 40px;
+	padding:0;
+}
+.form .input-box{
+	position:relative;
+	margin:20px 0;
+}
+.form .input-box input{
+	width:100%;
+	font-size:16px;
+	border:none;
+	border-bottom: 2px solid #777;
+	outline:none;
+	padding:10px;
+	padding-left:25px;
+	border-sizing:border-box;
+	font-weight:bold;
+	color:#777;
+}
+.form .input-box input:focus,
+.form .input-box input:valid{
+		border-bottom: 2px solid #03a9f4;
+}
+.form .input-box .fa{
+	position:absolute;
+	top:8px;
+	left:0;
+	font-size:18px;
+	color:#777;
+}
+.form .input-box input[type="submit"]{
+	border:none;
+	cursor:pointer;
+	background:#03a9f4;
+	color:#fff;
+	font-weight:bold;
+	transition:0.5s;
+}
+.form .input-box input[type="submit"]:hover{
+	background:#ff4987;
+}
+.form a{
+	text-decoration:none;
+	color:#777;
+	margin-top:20px;
+	font-weight:bold;
+	display: inline-block;
+	transition:0.5s;
+}
+.form a:hover{
+	color:#ff4987;
+}
+
+</style>
+
+  <div class="form">
+	  {% if messages %}
+        {% for message in messages %}
+         {% if message.tags %}  <script>alert("{{ message }}")</script> {% endif %}
+        {% endfor %}
+    {% endif %}
+	  <form action="/" method="post">
+		  <h2> Sign In</h2>
+		  {% csrf_token %}
+		  <div class="input-box" data-validate = "Valid uid is required: 00exaaa000">
+			  <i class="fa fa-user" aria-hidden="true"></i>
+			  <input type="text" name="uid" placeholder="UserID" required="">
+		  </div>
+		  <div class="input-box" data-validate="Password is required">
+			  <i class="fa fa-unlock-alt" aria-hidden="true"></i>
+			  <input type="password" name="pass" placeholder="Password" required="">
+		  </div>
+          <div class="input-box">
+			  <input type="submit" name="" value="Login">
+		  </div>
+		  New to here?! <a href="{% url 'register' %}">Sign up</a>
+	  </form>
+  </div>
+<!--	<div class="limiter">-->
+<!--		<div class="container-login100">-->
+<!--			<div class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-50">-->
+
+<!--				{% for  message in messages %}-->
+<!--					<p id="messages">{{ message }}</p>-->
+<!--				{% endfor %}-->
+
+
+<!--				<form class="login100-form validate-form" action="/" method="post">-->
+<!--					<span class="login100-form-title p-b-33">-->
+<!--						Account Login-->
+<!--					</span>-->
+<!--					{% csrf_token %}-->
+<!--					<div class="wrap-input100 validate-input" data-validate = "Valid uid is required: 00exaaa000">-->
+<!--						<input class="input100" type="text" name="uid" placeholder="UserId">-->
+<!--						<span class="focus-input100-1"></span>-->
+<!--						<span class="focus-input100-2"></span>-->
+<!--					</div>-->
+
+<!--					<div class="wrap-input100 rs1 validate-input" data-validate="Password is required">-->
+<!--						<input class="input100" type="password" name="pass" placeholder="Password">-->
+<!--						<span class="focus-input100-1"></span>-->
+<!--						<span class="focus-input100-2"></span>-->
+<!--					</div>-->
+
+<!--					<div class="container-login100-form-btn m-t-20">-->
+<!--						<button class="login100-form-btn" type="submit">-->
+<!--							Sign in-->
+<!--						</button>-->
+<!--					</div>-->
+
+
+
+<!--				</form>-->
+
+
+<!--					<div class="container-login100-form-btn m-t-20">-->
+<!--						New to here?! <a href="{% url 'register' %}"><span> Sign up</span></a>-->
+<!--					</div>-->
+
+
+
+
+<!--			</div>-->
+<!--		</div>-->
+<!--	</div>-->
+{% endblock %}
