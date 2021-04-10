@@ -49,7 +49,7 @@ def recognize_face(face_image, input_embeddings, new_model):
 def create_input_image_embeddings():
     input_embeddings = {}
 
-    for file in glob.glob("D:/final/Facial_Recognization/Project_V-main/demo/static/images/*"):
+    for file in glob.glob("./static/images/*"):
         person_name = os.path.splitext(os.path.basename(file))[0]
         image_file = cv2.imread(file, 1)
         input_embeddings[person_name] = image_to_embedding(image_file, new_model)
@@ -64,7 +64,7 @@ def recognize_faces_in_cam(input_embeddings):
 
 
     font = cv2.FONT_HERSHEY_SIMPLEX
-    face_cascade = cv2.CascadeClassifier('D:/final/Facial_Recognization/Project_V-main/demo/haarcascade_frontalface_default.xml')
+    face_cascade = cv2.CascadeClassifier('./haarcascade_frontalface_default.xml')
     
     while vc.isOpened():
         _, frame = vc.read()

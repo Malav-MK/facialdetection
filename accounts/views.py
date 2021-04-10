@@ -109,7 +109,7 @@ def submitappointment(request,id):
     date_to = request.POST.get('date_to')
     cam = cv2.VideoCapture(0)
 
-    face_detector = cv2.CascadeClassifier('D:/Demo/Facial_Recognization/Project_V-main/demo/haarcascade_frontalface_default.xml')
+    face_detector = cv2.CascadeClassifier('./haarcascade_frontalface_default.xml')
     count = 0
     while (True):
         ret, img = cam.read()
@@ -122,7 +122,7 @@ def submitappointment(request,id):
             cv2.rectangle(img, (x1, y1), (x2, y2), (255, 255, 255), 2)
             count += 1
             user = User.objects.get(id=id)
-            cv2.imwrite("D:/Dpipemo/Facial_Recognization/Project_V-main/demo//static/images/" + user.name + ".jpg", img[y1:y2, x1:x2])
+            cv2.imwrite("./static/images/" + user.name + ".jpg", img[y1:y2, x1:x2])
             cv2.imshow('image', img)
         k = cv2.waitKey(200) & 0xff
         if k == 27:
@@ -171,7 +171,6 @@ def sendanemail_accept(request,id):
     to_email = request.POST.get('toemail')
     meeting_date = request.POST.get('date')
     email_from = settings.EMAIL_HOST_USER
-
     appointment_obj.confirm_date=meeting_date
     appointment_obj.save()
     message='Thank you for your interest.I welcome to the opportunity to meet with you on '+ meeting_date +' and you otp is '+str(otp)+'.The specified date and time are convenient to us, so we shall meet at office as scheduled.I genuinely appreciate a prompt confirmation from your side.'
@@ -182,13 +181,9 @@ def sendanemail_reject(request,id):
     to_email = request.POST.get('toemail')
     email_from = settings.EMAIL_HOST_USER
     email_body = request.POST.get('Email_body')
-    appointment_obj = Appointment.objects.get(id=id)
-    appointment_obj.is_Active = True
-    appointment_obj.save()
+    Appointment.objects.filter(id=id).delete()
     send_mail('Meeting date at The Big Office company', email_body, email_from,[to_email] ,
               fail_silently=False)
-    # appointments_obj = Appointment.objects.all()
-
     return render(request,'View_option.html')
 
 def device(request):
@@ -205,8 +200,6 @@ def system_device(request):
         appointment_obj=Appointment.objects.filter(user_id=user_obj)
         return render(request, 'Otp_form.html', {"user_obj": user_obj})
     else:
-        import pdb
-        pdb.set_trace()
         return redirect('system_device')
 
 def otp_match(request,id):
@@ -215,17 +208,11 @@ def otp_match(request,id):
     for i in app_obj:
         if i.otp_Number!=None:
             otp_list.append(i.otp_Number)
-
     if int(request.POST.get('otp')) in otp_list:
         appoinment_obj=Appointment.objects.get(otp_Number=request.POST.get('otp'))
         return redirect('pdf_view',id=appoinment_obj.pk)
-
-
     else:
-        pass
-    import pdb
-    pdb.set_trace()
-
+        return HttpResponse("Otp is not match")
 
 
 def render_to_pdf(template_src, context_dict={}):
@@ -237,15 +224,10 @@ def render_to_pdf(template_src, context_dict={}):
 		return HttpResponse(result.getvalue(), content_type='application/pdf')
 	return None
 
-data = {
-        "Name":"Patel Vedant Shailesh",
-        "Date":"10/4/2021",
-        "V_type":"Interview"}
-
 
 def pdf_view(request,id):
     appointment_obj=Appointment.objects.filter(pk=id).values('confirm_date','visit_type')[0]
     app_obj=Appointment.objects.get(pk=id)
     appointment_obj['name']=app_obj.user_id.name
-    pdf = render_to_pdf('D:/final/Facial_Recognization/Project_V-main/demo/templates/pdf_template.html', appointment_obj)
+    pdf = render_to_pdf('D:/final/Project_G19/templates/pdf_template.html', appointment_obj)
     return HttpResponse(pdf, content_type='application/pdf')
